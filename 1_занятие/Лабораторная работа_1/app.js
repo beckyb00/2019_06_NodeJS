@@ -2,16 +2,15 @@ const http = require('http');
 
 const fs = require('fs'); 
 
-const filename = "index.html";
-
-http.createServer((request, response) => {
-    fs.readFile(filename, 'utf-8', (err, data) => {
+http.createServer((request, response) => 
+{
+    fs.appendFile ("header.html", "body.html", "footer.html", "utf8", (err, data) => {
         if (err) {
             console.log('Could not find or open file for reading\n');
             response.statusCode = 404;
             response.end();
         } else {
-            console.log(`The file ${filename} is read and sent to the client\n`);
+            console.log(`The file ${data} is read and sent to the client\n`);
             response.writeHead(200, {'Content-Type':'text/html'});
             response.end(data);
         }
@@ -20,3 +19,4 @@ http.createServer((request, response) => {
 }).listen(8080, ()=>{
     console.log("HTTP server works in 8080 port!\n");
 });
+
